@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<script src="lib/jquery.js"></script>
+<script src="lib/raphael-min.js"></script>
+
+<script src='board.js'></script>
+<script src='actor.js'></script>
+<script src='game.js'></script>
+
+<script>
+jQuery(function(){
+
+var board = kai.Board();
+
+var actors = [];
+actors.push(new kai.Actor(board.board));
+actors.push(new kai.Actor(board.board, { 
+    name: 'Mr Blue',
+    r: 30, dx: 5, dy: 5,
+    attr: { gradient: '90-blue-yellow' }
+    //act: function(){ this.brake(.01); }
+}));
+actors.push(new kai.Actor(board.board, { 
+    name: 'Mr Green',
+    r: 30, dx: -5, dy: -5,
+    attr: { gradient: '90-green-yellow' }
+    //act: function(){ this.brake(.01); }
+}));
+
+var game = kai.Game(board, actors);
+
+});
+</script>
+
+<body>
+<div id='board'></div>
+</body>
