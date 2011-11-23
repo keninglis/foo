@@ -7,28 +7,28 @@
 <script src='board.js'></script>
 <script src='actor.js'></script>
 <script src='game.js'></script>
+<script src='collider.js'></script>
 
 <script>
 jQuery(function(){
 
 var board = kai.Board();
+var collider = kai.Collider();
 
 var actors = [];
 actors.push(new kai.Actor(board.board));
 actors.push(new kai.Actor(board.board, { 
     name: 'Mr Blue',
-    r: 30, dx: 5, dy: 5,
+    r: 20, dx: 3, dy: 3.2,
     attr: { gradient: '90-blue-yellow' }
-    //act: function(){ this.brake(.01); }
 }));
 actors.push(new kai.Actor(board.board, { 
     name: 'Mr Green',
-    r: 30, dx: -5, dy: -5,
+    r: 20, dx: -3.2, dy: -4,
     attr: { gradient: '90-green-yellow' }
-    //act: function(){ this.brake(.01); }
 }));
 
-var game = kai.Game(board, actors);
+var game = kai.Game(board, actors, collider);
 
 });
 </script>

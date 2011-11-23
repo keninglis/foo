@@ -61,7 +61,7 @@ kai.Actor = function(board, settings) {
 
     var collideWith = function(actor) {
         console.debug(actor.name);
-        actor.stop();
+        //actor.stop();
     };
 
     return {
