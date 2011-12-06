@@ -1,27 +1,15 @@
 kai = window.kai || {}
 
-kai.Actor = function(board, settings) {
+kai.Actor = function(view, settings) {
 
     var defaults = {
-        x: 200, y: 200, 
-        type: 'circle',
-        r: 20,
-        attr: {gradient:'45-red-yellow'},
         name: 'anonymous',
-        dx: 2.1,
-        dy: 1.8,
+        dx: 0, 
+        dy: 0,
         act: function(){} 
     };
-
     var settings = $.extend({}, defaults, settings);
 
-    var getShape = function() {
-        return board.circle(settings.x, settings.y, settings.r);
-    };
-
-
-    var view = getShape()
-        .attr(settings.attr);
     var name = settings.name;
     var dx = settings.dx;
     var dy = settings.dy;
@@ -60,7 +48,7 @@ kai.Actor = function(board, settings) {
     };
 
     var collideWith = function(actor) {
-        console.debug(actor.name);
+        //console.debug(actor.name);
         //actor.stop();
     };
 

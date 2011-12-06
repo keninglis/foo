@@ -16,17 +16,27 @@ var board = kai.Board();
 var collider = kai.Collider();
 
 var actors = [];
-actors.push(new kai.Actor(board.board));
-actors.push(new kai.Actor(board.board, { 
-    name: 'Mr Blue',
-    r: 20, dx: 3, dy: 3.2,
-    attr: { gradient: '90-blue-yellow' }
-}));
-actors.push(new kai.Actor(board.board, { 
-    name: 'Mr Green',
-    r: 20, dx: -3.2, dy: -4,
-    attr: { gradient: '90-green-yellow' }
-}));
+
+actors.push(new kai.Actor(
+    board.board.circle(20,20,8)
+        .attr({ gradient: '90-red-yellow' }),
+    { name: 'Mr Red', dx: -4, dy: 3.2 }
+
+));
+
+actors.push(new kai.Actor(
+    board.board.circle(20,20,10)
+        .attr({ gradient: '90-blue-yellow' }),
+    { name: 'Mr Blue', dx: 3, dy: 3.2 }
+));
+
+/*
+actors.push(new kai.Actor(
+    board.board.rect(30,30,20,20)
+        .attr({ gradient: '90-green-yellow' }),
+    { name: 'Mr Green', dx: 5, dy: 5 }
+));
+*/
 
 var game = kai.Game(board, actors, collider);
 
