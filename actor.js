@@ -14,30 +14,42 @@ kai.Actor = function(view, settings) {
     var dx = settings.dx;
     var dy = settings.dy;
     var act = settings.act;
+    var bb = view.getBBox();
+
+    var centre = function() {
+        var rX = bb.width/2;
+        var rY = bb.height/2;
+        return { 
+            x: bb.x + bb.width/2,
+            y: bb.y + bb.height/2,
+            rX: rX,
+            rY: rY,
+            r: (rX + rY)/2
+        };
+    };
 
     // get/set postion {x: y: }
     var position = function(newPosition) {
         if(newPosition) {
-            view.attr('cx', newPosition.x);
-            view.attr('cy', newPosition.y);
+            c = centre();
+            view.translate(newPosition.x - c.x, newPosition.y - c.y);
+            bb = view.getBBox();
         }
-        return {
-            x: view.attr('cx'),
-            y: view.attr('cy'),
-            r: settings.r 
-        };
+        return centre();
     }
+
     // where are we heading for this turn
     // return{ x: y: }
     var destination = function() {
+        var c = centre();
         return {
-            x: view.attr('cx') + dx,
-            y: view.attr('cy') + dy
+            x: c.x + dx,
+            y: c.y + dy
         };
     }
 
     var stop = function() { dx = 0; dy = 0; };
-    var reverse = function() { reverseX(); reverseY(); };
+    var reverse = function() { everseX(); reverseY(); };
     var reverseX = function() { dx *= -1; };
     var reverseY = function() { dy *= -1; };
 
