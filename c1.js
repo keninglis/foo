@@ -4,7 +4,13 @@ kai = window.kai || {};
 kai.ShipActor = function(settings)
 {
     var arcEnd = 2 * Math.PI; // full circle
-    var defaults = { x:150,y:150,r:20,dx:1,dy:1,fillStyle:'rgba(255,0,0,1)' };
+    var defaults = { 
+        x:150,y:150,r:20,
+        dx:1,dy:1,
+        fillStyle:'rgba(255,0,0,1)',
+        cockpitFill:'rgba(255,255,255,.3)',
+        cockpitStroke:'rgba(20,20,20,.5)'
+        };
     var settings = $.extend({}, defaults, settings);
 
     var dx = settings.dx;
@@ -16,8 +22,6 @@ kai.ShipActor = function(settings)
 
     // want tips of tail to touch circle ...
     var tailAdjust = Math.sqrt(r * r / 2); 
-
-    console.debug(r,tailAdjust);
 
     //dx = .5; dy = .5;
     //dx = 0; dy = 0;
@@ -53,8 +57,8 @@ kai.ShipActor = function(settings)
         // cockpit
         ctx.beginPath();
         ctx.arc(4,0,r/4,2,-2,true);
-        ctx.strokeStyle = 'rgba(20,20,20,.5)';
-        ctx.fillStyle = 'rgba(255,255,255,.3)';
+        ctx.strokeStyle = settings.cockpitStroke;
+        ctx.fillStyle = settings.cockpitFill;
         ctx.fill()
         ctx.stroke();
         ctx.closePath();
