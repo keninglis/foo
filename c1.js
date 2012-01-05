@@ -6,38 +6,67 @@ kai.ShipActor = function(settings)
     var arcEnd = 2 * Math.PI; // full circle
     var defaults = { 
         x:150,y:150,r:20,
-        dx:1,dy:1,
+        speed: 1, rBearing: 0,
+        maxSpeed:5,
+        turn: Math.PI/20, // pi == 180deg, turn in radians
+        thrust: .5,
         fillStyle:'rgba(255,0,0,1)',
         cockpitFill:'rgba(255,255,255,.3)',
         cockpitStroke:'rgba(20,20,20,.5)'
         };
     var settings = $.extend({}, defaults, settings);
 
-    var dx = settings.dx;
-    var dy = settings.dy;
     var y = settings.y;
     var x = settings.x;
+    var speed = settings.speed;
 
     var r = settings.r;
 
     // want tips of tail to touch circle ...
     var tailAdjust = Math.sqrt(r * r / 2); 
 
-    //dx = .5; dy = .5;
-    //dx = 0; dy = 0;
-    var bearing;
+    var rBearing = settings.rBearing; // radians 0 is east
 
-    var move = function(ctx) {
+    var move = function(ctx,events) {
+
+        if(events.direction) {
+            if(events.direction == 'left') {
+                rBearing -= settings.turn;
+            } else {
+                rBearing += settings.turn;
+            }
+            events.direction = false;
+        }
+
+        if(events.thrust) {
+            if(events.thrust == 'on') {
+                speed += settings.thrust; 
+                if(speed > settings.maxSpeed) { speed = settings.maxSpeed; }
+            } else {
+                speed -= settings.thrust;
+                if(speed < 0) { speed = 0; }
+            }
+            console.debug(speed);
+            events.thrust = false;
+        }
+
+        dx = Math.cos(rBearing) * speed;
+        dy = Math.sin(rBearing) * speed;
+
         var _x = x + dx; var _y = y+dy;
+
+        // canvas boundaries
         if(_x < r) { _x = r; dx *= -1; }
         if(_y < r) { _y = r; dy *= -1; }
-
         if(_x + r > ctx.canvas.width) { _x = ctx.canvas.width - r; dx *= -1; }
         if(_y + r > ctx.canvas.height) { _y = ctx.canvas.height - r; dy *= -1; }
+
         x = _x; y = _y;
 
         // calculate new bearing (from east)
-        rBearing = Math.atan2(dy,dx); // radian
+        if(dx && dy) {
+            rBearing = Math.atan2(dy,dx); // radian
+        }
 
         // translate to centre of ship, rotate
         ctx.save();
@@ -65,18 +94,6 @@ kai.ShipActor = function(settings)
         
         // and restore saved settings
         ctx.restore();
-
-        // cockpit
-        /*
-        ctx.beginPath();
-        ctx.arc(x,y,r/4,0,arcEnd);
-        ctx.strokeStyle = 'rgba(20,20,20,.3)';
-        ctx.fillStyle = 'silver';
-        ctx.fill()
-        ctx.stroke();
-        ctx.closePath();
-        */
-
     };
 
     return {
@@ -155,6 +172,20 @@ kai.Game = function(setup) {
     var setup = setup || {};
     var actors = setup.actors || [];
 
+    var events = {
+        direction: false,
+        thrust: false
+    };
+    window.onkeydown = function(e) {
+        switch(e.keyCode) {
+            case 37: events.direction = 'left'; break;
+            case 39: events.direction = 'right'; break;
+            case 38: events.thrust = 'on'; break;
+            case 40: events.thrust = 'off'; break;
+        }
+        //console.debug(e.keyCode,events.direction);
+    };
+
     var canvas = document.getElementById('board');
     var ctx = canvas.getContext('2d');
 
@@ -178,9 +209,9 @@ kai.Game = function(setup) {
         turns++;
         writeScore(turns);
         for(var i in actors) {
-            actors[i].move(ctx);
+            actors[i].move(ctx,events);
         }
-        setTimeout(loop, 30);
+        setTimeout(loop, 50);
     };
 
     return {
