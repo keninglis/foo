@@ -6,6 +6,65 @@ kai.levels = kai.levels || {};
 kai.levels.awaken = function(board) {
     console.debug('awaken');
 
+    var wall = 4; halfWall = 2; 
+    var rooms = [
+        { 
+            x:0,y:0,x2:100,y2:190,
+            name: 'Storeroom',
+            desc: 'top1',
+            draw: function(ctx) {  
+                ctx.fillStyle = 'rgba(255,0,0,.2)';
+                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+            }
+        },
+        { 
+            x:100,y:0,x2:100,y2:150,
+            name: 'Storeroom',
+            desc: 'top2',
+            draw: function(ctx) {  
+                ctx.fillStyle = 'rgba(0,0,255,.2)';
+                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+            }
+        },
+        { 
+            x:200,y:0,x2:100,y2:150,
+            name: 'Storeroom',
+            desc: 'top3',
+            draw: function(ctx) {  
+                ctx.fillStyle = 'rgba(255,0,0,.2)';
+                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+            }
+        },
+        { 
+            x:300,y:0,x2:100,y2:150,
+            name: 'Storeroom',
+            desc: 'top4',
+            draw: function(ctx) {  
+                ctx.fillStyle = 'rgba(0,0,255,.2)';
+                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+            }
+        },
+        { 
+            x:0,y:190,x2:300,y2:210,
+            name: 'Storeroom',
+            desc: 'bottom1',
+            draw: function(ctx) {  
+                ctx.fillStyle = 'rgba(0,0,255,.2)';
+                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+            }
+        }
+
+    ];
+
+    var drawBackground = function(ctx) {
+        ctx.lineWidth = wall;
+        var n = rooms.length;
+        for(var i = 0; i < n; i++) {
+            rooms[i].draw(ctx);
+        }
+    };
+    drawBackground(board.background);
+
     var player = {
         x: 10, y: 10,
         v: 2,
