@@ -13,7 +13,7 @@ kai.levels.awaken = function(board) {
             name: 'Storeroom',
             desc: 'top1',
             draw: function(ctx) {  
-                ctx.fillStyle = 'rgba(255,0,0,.2)';
+                ctx.fillStyle = 'rgba(255,0,0,.1)';
                 ctx.fillRect(this.x,this.y,this.x2,this.y2);
             }
         },
@@ -22,7 +22,7 @@ kai.levels.awaken = function(board) {
             name: 'Storeroom',
             desc: 'top2',
             draw: function(ctx) {  
-                ctx.fillStyle = 'rgba(0,0,255,.2)';
+                ctx.fillStyle = 'rgba(0,0,255,.1)';
                 ctx.fillRect(this.x,this.y,this.x2,this.y2);
             }
         },
@@ -31,7 +31,7 @@ kai.levels.awaken = function(board) {
             name: 'Storeroom',
             desc: 'top3',
             draw: function(ctx) {  
-                ctx.fillStyle = 'rgba(255,0,0,.2)';
+                ctx.fillStyle = 'rgba(255,0,0,.1)';
                 ctx.fillRect(this.x,this.y,this.x2,this.y2);
             }
         },
@@ -40,7 +40,7 @@ kai.levels.awaken = function(board) {
             name: 'Storeroom',
             desc: 'top4',
             draw: function(ctx) {  
-                ctx.fillStyle = 'rgba(0,0,255,.2)';
+                ctx.fillStyle = 'rgba(0,0,255,.1)';
                 ctx.fillRect(this.x,this.y,this.x2,this.y2);
             }
         },
@@ -49,11 +49,28 @@ kai.levels.awaken = function(board) {
             name: 'Storeroom',
             desc: 'bottom1',
             draw: function(ctx) {  
-                ctx.fillStyle = 'rgba(0,0,255,.2)';
+                ctx.fillStyle = 'rgba(0,0,255,.1)';
+                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+            }
+        },
+        { 
+            x:100,y:150,x2:200,y2:40,
+            name: 'Corridor',
+            desc: 'corridor',
+            draw: function(ctx) {  
+                ctx.fillStyle = 'rgba(0,255,255,.1)';
+                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+            }
+        },
+        { 
+            x:300,y:150,x2:100,y2:250,
+            name: 'Foyer',
+            desc: 'foyer',
+            draw: function(ctx) {  
+                ctx.fillStyle = 'rgba(255,0,0,.1)';
                 ctx.fillRect(this.x,this.y,this.x2,this.y2);
             }
         }
-
     ];
 
     var drawBackground = function(ctx) {
