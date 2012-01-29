@@ -4,16 +4,25 @@
 
 <style>
 body { background: #FDD; margin: 0; }
-#board { 
-    position: absolute; left: 0; top: 0; width: 400px; height:400px; 
+
+#back { 
+    position: absolute; left: 0; top: 0; height: 500px; width: 660px; 
     background: url('pics/paper/brown.jpg');
+}
+#board { 
+    position: absolute; left: 20px; top: 20px; width: 350px; height:350px; 
+    background: url('pics/paper/brown.jpg');
+    border: 2px solid #444;
 }
 
 #board canvas { position: absolute; top:0; left:0; }
 
 #control { 
-    position: absolute; left:400; top: 0;  width: 400px; height:400px;
+    position: absolute; right: 20px; top: 20px; 
+     width: 210px; height:420px;
     background: url('pics/paper/white-lined.jpg');
+    border: 2px solid #444;
+    padding: 20px;
 }
 </style>
 
@@ -37,12 +46,14 @@ jQuery(function(){
 
 </head>
 <body>
+<div id='back'>
 <div id='board'>
-<canvas id='background' width='400' height='400'></canvas>
-<canvas id='items' width='400' height='400'></canvas>
-<canvas id='actors' width='400' height='400'></canvas>
+<canvas id='background' width='350' height='350'></canvas>
+<canvas id='items' width='350' height='350'></canvas>
+<canvas id='actors' width='350' height='350'></canvas>
 </div>
 <div id='control' />
+</div>
 
 </body>
 </html>
