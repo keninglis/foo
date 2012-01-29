@@ -28,14 +28,21 @@ kai.levels.awaken = function(board) {
             }
         },
         { 
-            x:2*tileWidth,y:4*tileWidth,x2:4*tileWidth,y2:6*tileWidth,
+            x:0,y:4*tileWidth,x2:4*tileWidth,y2:6*tileWidth,
             title: 'awaken', 
             draw: function(ctx) { 
                 ctx.strokeRect(this.x,this.y,this.x2,this.y2);
             }
         },
         { 
-            x:2*tileWidth,y:10*tileWidth,x2:4*tileWidth,y2:6*tileWidth,
+            x:0,y:10*tileWidth,x2:4*tileWidth,y2:6*tileWidth,
+            title: 'awaken', 
+            draw: function(ctx) { 
+                ctx.strokeRect(this.x,this.y,this.x2,this.y2);
+            }
+        },
+        { 
+            x:0,y:16*tileWidth,x2:6*tileWidth,y2:4*tileWidth,
             title: 'awaken', 
             draw: function(ctx) { 
                 //ctx.fillStyle = 'rgba(255,255,255,.3)';
@@ -56,8 +63,8 @@ kai.levels.awaken = function(board) {
     };
 
     var player = {
-        x: tileWidth, y: 10*tileWidth,
-        v: 2,
+        x: 100, y: 300,
+        v: 8,
         w: 6,
         arcEnd: 2 * Math.PI,
         draw: function(ctx) {
