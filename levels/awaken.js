@@ -7,38 +7,45 @@ kai.levels.awaken = function(board) {
     console.debug('awaken');
 
     var boardWidth = 500; var boardHeight = 500;
+    var tileWidth = 25;
     var halfWindowHeight = Math.floor(board.actors.canvas.height / 2);
     var halfWindowWidth = Math.floor(board.actors.canvas.width / 2);
     var windowX = 0; var windowY = 0;
 
     var rooms = [
-        { x:0,y:0,x2:boardWidth,y2:boardHeight,
+        // the border
+        { 
+            x:0,y:0,x2:boardWidth,y2:boardHeight,
             draw: function(ctx) { 
                 ctx.strokeRect(this.x,this.y,this.x2,this.y2);
             }
         },
-        { x:0,y:0,x2:10,y2:10,
+        { 
+            x:0,y:0,x2:6*tileWidth,y2:4*tileWidth,
+            title: 'awaken', 
             draw: function(ctx) { 
-                ctx.fillStyle = 'rgba(255,0,0,.5)';
-                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+                ctx.strokeRect(this.x,this.y,this.x2,this.y2);
             }
         },
         { 
-            x:100,y:0,x2:10,y2:10,
+            x:2*tileWidth,y:4*tileWidth,x2:4*tileWidth,y2:6*tileWidth,
+            title: 'awaken', 
             draw: function(ctx) { 
-                ctx.fillStyle = 'rgba(255,0,0,.5)';
-                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+                ctx.strokeRect(this.x,this.y,this.x2,this.y2);
             }
         },
         { 
-            x:200,y:0,x2:10,y2:10,
+            x:2*tileWidth,y:10*tileWidth,x2:4*tileWidth,y2:6*tileWidth,
+            title: 'awaken', 
             draw: function(ctx) { 
-                ctx.fillStyle = 'rgba(255,0,0,.5)';
-                ctx.fillRect(this.x,this.y,this.x2,this.y2);
+                //ctx.fillStyle = 'rgba(255,255,255,.3)';
+                //ctx.fillRect(this.x,this.y,this.x2,this.y2);
+                ctx.strokeRect(this.x,this.y,this.x2,this.y2);
             }
         }
 
     ];
+
     var drawBackground = function(ctx) {
         ctx.save();
         ctx.translate(-windowX,-windowY);
@@ -49,9 +56,9 @@ kai.levels.awaken = function(board) {
     };
 
     var player = {
-        x: 10, y: 450,
+        x: tileWidth, y: 10*tileWidth,
         v: 2,
-        w: 10,
+        w: 6,
         arcEnd: 2 * Math.PI,
         draw: function(ctx) {
             ctx.beginPath(); 
