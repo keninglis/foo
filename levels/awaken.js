@@ -13,15 +13,24 @@ kai.levels.awaken = function(board) {
     var windowX = 0; var windowY = 0;
 
     var floorPlan = false;
+    var floorPlanData = false;
 
     // rewrite function: load image and then draw  
     var drawBackground = function(ctx) {
         drawBackground = function() { 
-            floorPlan = new Image(); 
-            floorPlan.src = 'levels/awaken_trans.png';
-            floorPlan.onload = function() {
+
+            var fp = new Image(); 
+            fp.src = 'levels/awaken_trans.png';
+            fp.onload = function() {
+                c = document.createElement('canvas');  
+                c.width = fp.width;
+                c.height = fp.height;
+                floorPlan = c.getContext('2d'); 
+                floorPlan.drawImage(fp,0,0);
+                // expensive one off load of image data... to avoid future loads
+                floorPlanData = floorPlan.getImageData(0,0,c.width,c.height);
                 drawBackground = function(ctx) {
-                    ctx.drawImage(floorPlan,-windowX,-windowY);
+                    ctx.drawImage(c,-windowX,-windowY);
                 };
             };
             drawBackground = function(){};
@@ -59,9 +68,10 @@ kai.levels.awaken = function(board) {
     };
 
     var moveResult = function(dX,dY,r){
-        console.debug(dX,dY);
+        
         var cX = halfWindowWidth + dX;
         var cY = halfWindowHeight + dY;
+
         var points = [
             [cX-r,cY-r],[cX-r,cY+r],[cX+r,cY+r],[cX+r,cY-r]
         ];
