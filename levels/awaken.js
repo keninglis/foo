@@ -30,7 +30,7 @@ kai.levels.awaken = function(board) {
 
     var player = {
         x: 290, y: 885,
-        v: 10,
+        v: 2,
         w: 6,
         arcEnd: 2 * Math.PI,
         draw: function(ctx) {
@@ -40,10 +40,37 @@ kai.levels.awaken = function(board) {
             ctx.fillStyle = 'green';
             ctx.fill();
         },
-        up: function(){this.y -= this.v;},
-        down: function(){this.y += this.v;},
-        left: function(){this.x -= this.v;},
-        right: function(){this.x += this.v;},
+        up: function(){ 
+            var newY = this.y - this.v; 
+            if(moveResult(this.x,this.y,this.x,newY,this.w) == 0) { this.y = newY; }
+        },
+        down: function(){
+            var newY = this.y + this.v;
+            if(moveResult(this.x,this.y,this.x,newY,this.w) == 0) { this.y = newY; }
+        },
+        left: function(){
+            var newX = this.x - this.v;
+            if(moveResult(this.x,this.y,newX,this.y,this.w) == 0) { this.x = newX; }
+        },
+        right: function(){
+            var newX = this.x + this.v;
+            if(moveResult(this.x,this.y,newX,this.y,this.w) == 0) { this.x = newX; }
+        },
+    };
+
+    var moveResult = function(x,y,newX,newY,r){
+        var dX = x - newX;
+        var dY = y - newY;
+        console.debug(dX,dY);
+        dX = (dX > 0) ? (dX + r) : (dX - r);
+        dY = (dY > 0) ? (dY + r) : (dY - r);
+        console.debug(dX,dY);
+        var imgData = board.background.getImageData(
+            halfWindowWidth + dX,halfWindowHeight + dY,1,1
+        ); 
+        var d = imgData.data;
+        if(d[0] < 50) { return 1; } // wall
+        return 0;// OK 
     };
 
     var moveWindow = function() {
