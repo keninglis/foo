@@ -14,6 +14,21 @@ kai.levels.awaken = function(board) {
 
     var floorPlan = false;
     var floorPlanData = false;
+    var floorPlanPixel = function(x,y) {
+        var pix = 4 * (y * floorPlan.canvas.width + x);
+        return [
+            floorPlanData.data[pix], floorPlanData.data[pix+1],
+            floorPlanData.data[pix+2], floorPlanData.data[pix+3]
+        ];
+        /*
+        console.debug(
+            x,y,pix,
+            floorPlanData.data[pix], floorPlanData.data[pix+1],
+            floorPlanData.data[pix+2], floorPlanData.data[pix+3]
+        );
+        */
+    };
+     
 
     // rewrite function: load image and then draw  
     var drawBackground = function(ctx) {
@@ -69,17 +84,16 @@ kai.levels.awaken = function(board) {
 
     var moveResult = function(dX,dY,r){
         
-        var cX = halfWindowWidth + dX;
-        var cY = halfWindowHeight + dY;
+        var cX = windowX + halfWindowWidth + dX;
+        var cY = windowY + halfWindowHeight + dY;
 
         var points = [
             [cX-r,cY-r],[cX-r,cY+r],[cX+r,cY+r],[cX+r,cY-r]
         ];
         for(var i in points){
-            var imgData = board.background.getImageData(points[i][0],points[i][1],1,1);
-            console.debug(points[i],imgData.data[0]);
-            if(imgData.data[0] < 50) { return 1; } // wall
-
+            var pix = floorPlanPixel(points[i][0], points[i][1]);
+            console.debug(pix);
+            if(pix[0] < 50) { return 1; } // wall
         }
         return 0;// OK 
     };
