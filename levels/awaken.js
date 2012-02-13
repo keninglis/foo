@@ -30,41 +30,47 @@ kai.levels.awaken = function(board) {
 
     var player = {
         x: 290, y: 885,
-        v: 5,
-        w: 6,
+        v: 2,
+        r: 6,
         arcEnd: 2 * Math.PI,
         draw: function(ctx) {
             ctx.beginPath(); 
-            //ctx.arc(this.x,this.y,5,0,this.arcEnd);
-            ctx.arc(halfWindowHeight,halfWindowHeight,this.w,0,this.arcEnd);
+            ctx.arc(halfWindowHeight,halfWindowHeight,this.r,0,this.arcEnd);
             ctx.fillStyle = 'green';
             ctx.fill();
         },
         up: function(){ 
             var newY = this.y - this.v; 
-            if(moveResult(0, -(this.v+this.w)) == 0) { this.y = newY; }
+            //if(moveResult(0, -(this.v+this.r)) == 0) { this.y = newY; }
+            if(moveResult(0, -this.v, this.r) == 0) { this.y = newY; }
         },
         down: function(){
             var newY = this.y + this.v;
-            if(moveResult(0,this.v+this.w) == 0) { this.y = newY; }
+            if(moveResult(0,this.v,this.r) == 0) { this.y = newY; }
         },
         left: function(){
             var newX = this.x - this.v;
-            if(moveResult(-(this.v+this.w),0) == 0) { this.x = newX; }
+            if(moveResult(-this.v,0,this.r) == 0) { this.x = newX; }
         },
         right: function(){
             var newX = this.x + this.v;
-            if(moveResult(this.v+this.w,-0) == 0) { this.x = newX; }
+            if(moveResult(this.v,0,this.r) == 0) { this.x = newX; }
         },
     };
 
-    var moveResult = function(dX,dY){
+    var moveResult = function(dX,dY,r){
         console.debug(dX,dY);
-        var imgData = board.background.getImageData(
-            halfWindowWidth + dX,halfWindowHeight + dY,1,1
-        ); 
-        var d = imgData.data;
-        if(d[0] < 50) { return 1; } // wall
+        var cX = halfWindowWidth + dX;
+        var cY = halfWindowHeight + dY;
+        var points = [
+            [cX-r,cY-r],[cX-r,cY+r],[cX+r,cY+r],[cX+r,cY-r]
+        ];
+        for(var i in points){
+            var imgData = board.background.getImageData(points[i][0],points[i][1],1,1);
+            console.debug(points[i],imgData.data[0]);
+            if(imgData.data[0] < 50) { return 1; } // wall
+
+        }
         return 0;// OK 
     };
 
