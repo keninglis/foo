@@ -23,6 +23,10 @@ body { background: black; margin: 0; }
 </style>
 <script src="lib/jquery.js"></script>
 <script src="core/game.js"></script>
+<script src="core/input.js"></script>
+<script src="actors/player.js"></script>
+<script src="actors/zombies.js"></script>
+<script src="levels/kaimall/ground.js"></script>
 
 <script>
 jQuery(function(){
@@ -32,7 +36,13 @@ jQuery(function(){
         actors: document.getElementById('actors').getContext('2d'),
         $control: jQuery('#control')
     };
-    var game = kai.game(board);
+
+    var input = kai.input(window);
+    var player = kai.player(input);
+    var level = kai.levels.kaimall();;
+
+    var game = kai.game(board,player,level);
+
     game.start();
 });
 </script>

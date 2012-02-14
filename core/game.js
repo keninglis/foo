@@ -1,31 +1,38 @@
 var kai = kai || {};
 
-kai.game = function(board) {
+kai.game = function(board,player,startLevel) {
+    var actors;
+    var level;
+    
+    var changeLevel = function(newLevel) {
+        level = newLevel;
+        // @TODO add actors from level
+        actors = level.getActors();
+        // @TODO place player on new level        
+        actors.push(player);
+    };
+    changeLevel(startLevel); // initial level
 
     var start = function() {
-        console.debug('starting');
         loop();
     };
 
-    // http://nokarma.org/2011/02/27/javascript-game-development-keyboard-input/index.html
-    var key = {
-        pressed:{},
-        LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40,  // arrows
-        // LEFT: 65, UP: 87, RIGHT: 68, DOWN: 83,    // WSAD
-        isDown: function(code) { return this.pressed[code]; },
-        onKeydown: function(e) { this.pressed[e.keyCode] = true; },
-        onKeyup: function(e) { delete this.pressed[e.keyCode]; }
-    };
-    window.addEventListener('keyup', function(e) { key.onKeyup(e); }, false);
-    window.addEventListener('keydown', function(e) { key.onKeydown(e); }, false);
-
     var turn = 0;
     var loop = function(){
+        if(!(turn % 50)) { console.debug('turn',turn); }
+            
         turn++;
+        // ask actors what they're doing, carry out the response from the level
+        for(var i in actors) {
+            var response = level.tryAction(actors[i].requestAction());
+            // opportunity to delay response till end of loop
+            actors[i].act(response);    
+        }
         setTimeout(loop, 200);
     };
+    
 
     return {
         start:start
-    }
+    };
 }
