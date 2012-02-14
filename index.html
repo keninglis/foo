@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<style>
+body { background: black; margin: 0; }
+#window {
+    position: absolute; left: 20px; top: 20px; width: 350px; height:350px; 
+    background: url('pics/paper/brown.jpg');
+    border: 2px solid #444;
+}
+#window canvas { position: absolute; top:0; left:0; }
+#control { 
+    position: absolute; left: 372px; top: 20px; 
+    width: 210px; height:310px;
+    background: black;
+    color: green;
+    border: 2px solid #444;
+    padding: 20px;
+    font-size: 18px;
+    font-family: "Verdana", sans-serif;
+}
+</style>
+<script src="lib/jquery.js"></script>
+<script src="core/game.js"></script>
+
+<script>
+jQuery(function(){
+    var board = {
+        background: document.getElementById('background').getContext('2d'),
+        items: document.getElementById('items').getContext('2d'),
+        actors: document.getElementById('actors').getContext('2d'),
+        $control: jQuery('#control')
+    };
+    var game = kai.game(board);
+    game.start();
+});
+</script>
+<body>
+
+<div id='window'>
+<canvas id='background' width='350' height='350'></canvas>
+<canvas id='items' width='350' height='350'></canvas>
+<canvas id='actors' width='350' height='350'></canvas>
+</div>
+
+<div id='control'>
+Loading...
+</div>
+</body>
