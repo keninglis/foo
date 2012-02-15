@@ -35,7 +35,8 @@ kai.levels.awaken = function(board) {
         drawBackground = function() { 
 
             var fp = new Image(); 
-            fp.src = 'levels/awaken_trans.png';
+            //fp.src = 'levels/awaken_trans.png';
+            fp.src = 'levels/kaimall/ground_fp.gif';
             fp.onload = function() {
                 c = document.createElement('canvas');  
                 c.width = fp.width;
@@ -93,7 +94,8 @@ kai.levels.awaken = function(board) {
         for(var i in points){
             var pix = floorPlanPixel(points[i][0], points[i][1]);
             console.debug(pix);
-            if(pix[0] < 50) { return 1; } // wall
+            if(pix[3] >220) { return 1; }
+            //if(pix[0] < 50) { return 1; } // wall
         }
         return 0;// OK 
     };
