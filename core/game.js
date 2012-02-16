@@ -31,9 +31,15 @@ kai.game = function(board,player,startLevel) {
         for(var i in actors) {
             actors[i].act(level.tryAction(actors[i].requestAction()));
         }
-       
-        player.draw(); 
 
+        // where the window is in abs x,y
+        var offsetX = player.x - windowHalfW; 
+        var offsetY = player.y - windowHalfH; 
+
+        player.draw(); 
+        for(var i in actors) {
+            actors[i].draw(board.actors,offsetX,offsetY);
+        }
 
         setTimeout(loop, 200);
     };

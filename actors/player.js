@@ -4,8 +4,8 @@ var kai = kai || {};
 kai.Player = function(input) {
     
     this.input = input;
-    this.x = 20;
-    this.y = 20;
+    this.x = 100;
+    this.y = 100;
     this.bearing = 0;
     this.r = 6; //radius
     this.arcEnd = 2 * Math.PI; // full circle
