@@ -12,9 +12,9 @@ kai.levels.kaimall = function() {
     // get initial cast
     var getActors = function() {
         return [
-            kai.zombies.normal(10,10,10), 
-            kai.zombies.normal(15,10,10), 
-            kai.zombies.normal(10,15,10) 
+            new kai.zombies.Normal(10,10,10), 
+            new kai.zombies.Normal(15,10,10), 
+            new kai.zombies.Normal(10,15,10) 
         ];
     }
 
