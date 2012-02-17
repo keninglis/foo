@@ -1,3 +1,5 @@
+"use strict";
+
 var kai = kai || {};
 
 // constructor
@@ -9,11 +11,11 @@ kai.Player = function(input) {
     this.bearing = 0;
     this.r = 6; //radius
     this.arcEnd = 2 * Math.PI; // full circle
-}
+};
 
 kai.Player.prototype.setWindow = function(midX,midY,ctx) {
     // adjust midX by radius?
-    this.winX = midX;
+    this.winX = midX; 
     this.winY = midX;
     this.ctx = ctx;
 };
@@ -41,6 +43,7 @@ kai.Player.prototype.act = function(response) {
 };
 
 kai.Player.prototype.draw = function() {
+    
     this.ctx.beginPath(); 
     this.ctx.arc(this.winX,this.winY,this.r,0,this.arcEnd);
     this.ctx.fillStyle = 'green';

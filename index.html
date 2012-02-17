@@ -39,10 +39,8 @@ jQuery(function(){
 
     var input = kai.input(window);
     var player = new kai.Player(input);
-    console.debug(player);
-    var level = kai.levels.kaimall();;
-
-    var game = kai.game(board,player,level);
+    var level = new kai.levels.Kaimall();;
+    var game = new kai.Game(board,player,level);
 
     game.start();
 });
