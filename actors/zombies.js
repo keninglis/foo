@@ -7,13 +7,23 @@ kai.zombies.Normal = function(x,y,bearing) {
     this.y = y;
     this.r = 6;
     this.arcEnd = 2*Math.PI;
+    this.speed = 1;
     this.bearing = bearing; 
 };
 
 kai.zombies.Normal.prototype.requestAction = function(){
+    var dX = -1 * Math.cos(this.bearing) * this.speed;
+    var dY = -1 * Math.sin(this.bearing) * this.speed;
+    return { move: [this.x,this.y,dX,dY,this.radius] }; 
 };
 
-kai.zombies.Normal.prototype.act = function(){
+kai.zombies.Normal.prototype.act = function(response){
+    if(!response) { return; }
+    if(response.move) {
+        console.debug(this.bearing);
+        this.x = response.move[0];
+        this.y = response.move[1];
+    }
 };
 
 kai.zombies.Normal.prototype.draw = function(ctx,offsetX,offsetY){

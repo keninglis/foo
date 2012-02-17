@@ -19,9 +19,10 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
 
 kai.levels.Kaimall.prototype.getActors = function() {
     return [
-        new kai.zombies.Normal(20,20,10), 
-        new kai.zombies.Normal(180,180,10), 
-        new kai.zombies.Normal(20,180,10), 
-        new kai.zombies.Normal(180,20,10) 
+        new kai.zombies.Normal(20,20,0), 
+        new kai.zombies.Normal(180,180,-1), 
+        new kai.zombies.Normal(20,180,1), 
+        new kai.zombies.Normal(180,20,-0) 
+
     ];
 }

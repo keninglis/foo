@@ -8,9 +8,9 @@ kai.Player = function(input) {
     this.input = input;
     this.x = 100;
     this.y = 100;
-    this.speed = 2;
+    this.speed = 5;
 
-    this.bearing = 0;
+    this.bearing = Math.PI;
     this.dBearing = 2 * Math.PI / 60; // @TODO magic number..how much do we turn
 
     this.radius = 6; //radius
@@ -55,6 +55,7 @@ kai.Player.prototype.requestAction = function(){
 kai.Player.prototype.act = function(response) {
     if(!response) { return; }
     if(response.move) {
+        console.debug(this.bearing);
         this.x = response.move[0];
         this.y = response.move[1];
     }
