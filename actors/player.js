@@ -8,8 +8,12 @@ kai.Player = function(input) {
     this.input = input;
     this.x = 100;
     this.y = 100;
+    this.speed = 2;
+
     this.bearing = 0;
-    this.r = 6; //radius
+    this.dBearing = 2 * Math.PI / 60; // @TODO magic number..how much do we turn
+
+    this.radius = 6; //radius
     this.arcEnd = 2 * Math.PI; // full circle
 };
 
@@ -22,30 +26,44 @@ kai.Player.prototype.setWindow = function(midX,midY,ctx) {
 
 // what do you want to do this turn
 kai.Player.prototype.requestAction = function(){
-    if(this.input.isDown(this.input.UP)) {
-        console.debug('up');
-    }
-    if(this.input.isDown(this.input.DOWN)) {
-        console.debug('down');
-    }
+
+    var dX = 0,dY = 0; 
+
     if(this.input.isDown(this.input.LEFT)) {
-        console.debug('left');
+        this.bearing -= this.dBearing;
     }
     if(this.input.isDown(this.input.RIGHT)) {
-        console.debug('right');
+        this.bearing += this.dBearing;
     }
-    //console.debug('player requestAction');
+
+    if(this.input.isDown(this.input.UP)) {
+        dX = -1 * Math.cos(this.bearing) * this.speed;
+        dY = -1 * Math.sin(this.bearing) * this.speed;
+        //console.debug('up');
+    }
+    if(this.input.isDown(this.input.DOWN)) {
+        dY = Math.sin(this.bearing) * this.speed;
+        dX = Math.cos(this.bearing) * this.speed;
+        //console.debug('down');
+    }
+    if(dX || dY) {
+        return { move: [this.x,this.y,dX,dY,this.radius] }; 
+    }
 };
 
 // what happened to you this turn
 kai.Player.prototype.act = function(response) {
-    //console.debug('player act');
+    if(!response) { return; }
+    if(response.move) {
+        this.x = response.move[0];
+        this.y = response.move[1];
+    }
 };
 
 kai.Player.prototype.draw = function() {
     
     this.ctx.beginPath(); 
-    this.ctx.arc(this.winX,this.winY,this.r,0,this.arcEnd);
-    this.ctx.fillStyle = 'green';
+    this.ctx.arc(this.winX,this.winY,this.radius,0,this.arcEnd);
+    this.ctx.fillStyle = 'black';
     this.ctx.fill();
 };

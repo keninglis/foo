@@ -28,18 +28,30 @@ kai.Game.prototype.loop = function(){
     // where the window is in abs x,y
     var offsetX = this.player.x - this.windowHalfW; 
     var offsetY = this.player.y - this.windowHalfH; 
+  
+    // if player has moved move background,etc 
+    
+    // move actors anyway
+    // @todo clear actors 
 
+    this.clearCtx(this.board.actors);
+    //console.debug('at', this.player.x, this.player.y);
     this.player.draw(); 
     for(var i in this.actors) {
         this.actors[i].draw(this.board.actors,offsetX,offsetY);
     }
 
-    // setTimeout will lose context so save it
+    // setTimeout loses this unless we save it here 
     var that = this;
-    setTimeout(function(){that.loop()}, 200);
+    setTimeout(function(){that.loop()}, 40);
 };
 
 kai.Game.prototype.start = function() {
     this.changeLevel(this.startLevel); // initial level
     this.loop();
+};
+
+
+kai.Game.prototype.clearCtx = function(ctx) {
+    ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 };

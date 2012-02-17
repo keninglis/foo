@@ -11,7 +11,10 @@ kai.levels.Kaimall.prototype.load = function(){
 }
 
 kai.levels.Kaimall.prototype.tryAction = function(action) {
-        //console.debug('kaimall tryAction');
+    if(!action) { return; }
+    if(action.move) {
+        return { move: [action.move[0]+action.move[2], action.move[1]+action.move[3]] };
+    }
 };
 
 kai.levels.Kaimall.prototype.getActors = function() {
