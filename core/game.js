@@ -1,3 +1,4 @@
+"use strict";
 var kai = kai || {};
 
 kai.Game = function(board,player,startLevel) {
@@ -11,13 +12,6 @@ kai.Game = function(board,player,startLevel) {
     this.actors = startLevel.getActors();
 }
 
-kai.Game.prototype.changeLevel = function(newLevel) {
-    this.level = newLevel;
-    this.level.load(function() {
-        this.actors = level.getActors();
-    });
-};
-
 kai.Game.prototype.loop = function(){
     // what ya doing? this happened. How d'ya like that?
     this.player.act(this.level.tryAction(this.player.requestAction()));
@@ -30,6 +24,11 @@ kai.Game.prototype.loop = function(){
     var offsetY = this.player.y - this.windowHalfH; 
   
     // if player has moved move background,etc 
+    if(this.player.hasMoved) {
+        this.player.hasMoved = false;
+        this.clearCtx(this.board.background);
+        this.level.draw(this.board.background,offsetX,offsetY);
+    }
     
     // move actors anyway
     // @todo clear actors 
@@ -47,8 +46,9 @@ kai.Game.prototype.loop = function(){
 };
 
 kai.Game.prototype.start = function() {
-    this.changeLevel(this.startLevel); // initial level
-    this.loop();
+    this.level = this.startLevel;
+    var that = this;
+    this.level.load(function(){ that.loop(); });
 };
 
 

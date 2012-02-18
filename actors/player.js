@@ -15,6 +15,8 @@ kai.Player = function(input) {
 
     this.radius = 6; //radius
     this.arcEnd = 2 * Math.PI; // full circle
+
+    this.hasMoved = true; // start as true to start drawing
 };
 
 kai.Player.prototype.setWindow = function(midX,midY,ctx) {
@@ -57,6 +59,7 @@ kai.Player.prototype.act = function(response) {
     if(response.move) {
         this.x = response.move[0];
         this.y = response.move[1];
+        this.hasMoved = true;
     }
 };
 
