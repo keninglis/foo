@@ -7,7 +7,7 @@ kai.levels.Kaimall = function() {
 }
 
 kai.levels.Kaimall.prototype.load = function(){
-    console.debug('loading from console');
+    console.debug('Kai Mall loading...');
 }
 
 kai.levels.Kaimall.prototype.tryAction = function(action) {
@@ -18,11 +18,11 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
 };
 
 kai.levels.Kaimall.prototype.getActors = function() {
-    return [
-        new kai.zombies.Normal(20,20,0), 
-        new kai.zombies.Normal(180,180,-1), 
-        new kai.zombies.Normal(20,180,1), 
-        new kai.zombies.Normal(180,20,-0) 
-
-    ];
+    var actors = [];
+    for(var i = 0; i < 50; i++) {
+        actors.push(new kai.zombies.Normal(
+            Math.random() * 200, Math.random() * 200, 2 * Math.PI * Math.random()
+        ));
+    }
+    return actors;
 }
