@@ -10,7 +10,7 @@ kai.Player = function(input) {
     this.y = 100;
     this.speed = 5;
 
-    this.bearing = Math.PI;
+    this.bearing = 0; 
     this.dBearing = 2 * Math.PI / 60; // @TODO magic number..how much do we turn
 
     this.radius = 6; //radius
@@ -37,13 +37,13 @@ kai.Player.prototype.requestAction = function(){
     }
 
     if(this.input.isDown(this.input.UP)) {
-        dX = -1 * Math.cos(this.bearing) * this.speed;
-        dY = -1 * Math.sin(this.bearing) * this.speed;
+        dX = Math.cos(this.bearing) * this.speed;
+        dY = Math.sin(this.bearing) * this.speed;
         //console.debug('up');
     }
     if(this.input.isDown(this.input.DOWN)) {
-        dY = Math.sin(this.bearing) * this.speed;
-        dX = Math.cos(this.bearing) * this.speed;
+        dY = -1 * Math.sin(this.bearing) * this.speed;
+        dX = -1 * Math.cos(this.bearing) * this.speed;
         //console.debug('down');
     }
     if(dX || dY) {
@@ -55,7 +55,6 @@ kai.Player.prototype.requestAction = function(){
 kai.Player.prototype.act = function(response) {
     if(!response) { return; }
     if(response.move) {
-        console.debug(this.bearing);
         this.x = response.move[0];
         this.y = response.move[1];
     }
