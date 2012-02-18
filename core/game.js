@@ -28,6 +28,7 @@ kai.Game.prototype.loop = function(){
         this.player.hasMoved = false;
         this.clearCtx(this.board.background);
         this.level.draw(this.board.background,offsetX,offsetY);
+        //console.debug(this.player.x,this.player.y);
     }
     
     // move actors anyway
@@ -48,7 +49,11 @@ kai.Game.prototype.loop = function(){
 kai.Game.prototype.start = function() {
     this.level = this.startLevel;
     var that = this;
-    this.level.load(function(){ that.loop(); });
+    this.level.load(function(){ 
+        that.player.x = that.level.startX;
+        that.player.y = that.level.startY;
+        that.loop(); 
+    });
 };
 
 

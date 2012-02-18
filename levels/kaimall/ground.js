@@ -3,7 +3,8 @@ var kai = kai || {};
 kai.levels = kai.levels || {};
 
 kai.levels.Kaimall = function() {
-
+    // starting position
+    this.startX = 212; this.startY = 477;
 }
 
 // param is callback for onload
@@ -46,7 +47,9 @@ kai.levels.Kaimall.prototype.getActors = function() {
     var actors = [];
     for(var i = 0; i < 50; i++) {
         actors.push(new kai.zombies.Normal(
-            Math.random() * 200, Math.random() * 200, 2 * Math.PI * Math.random()
+            Math.random() * 200 + this.startX, 
+            Math.random() * 200 + this.startY, 
+            2 * Math.PI * Math.random()
         ));
     }
     return actors;
