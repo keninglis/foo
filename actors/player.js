@@ -10,11 +10,11 @@ kai.Player = function(input) {
     this.y = 100;
     this.speed = 5;
 
+    this.twoPI = 2 * Math.PI;
     this.bearing = 0; 
-    this.dBearing = 2 * Math.PI / 60; // @TODO magic number..how much do we turn
+    this.dBearing = this.twoPI / 60; // @TODO magic number..how much do we turn
 
     this.radius = 6; //radius
-    this.arcEnd = 2 * Math.PI; // full circle
 
     this.hasMoved = true; // start as true to start drawing
 };
@@ -33,9 +33,11 @@ kai.Player.prototype.requestAction = function(){
 
     if(this.input.isDown(this.input.LEFT)) {
         this.bearing -= this.dBearing;
+        if(this.bearing < 0) { this.bearing += this.twoPI; } 
     }
     if(this.input.isDown(this.input.RIGHT)) {
         this.bearing += this.dBearing;
+        if(this.bearing > this.twoPI) { this.bearing -= this.twoPI; }
     }
 
     if(this.input.isDown(this.input.UP)) {
@@ -67,9 +69,9 @@ kai.Player.prototype.act = function(response) {
 };
 
 kai.Player.prototype.draw = function() {
-    
     this.ctx.beginPath(); 
-    this.ctx.arc(this.winX,this.winY,this.radius,0,this.arcEnd);
+    // crude player - flat is front 
+    this.ctx.arc(this.winX,this.winY,this.radius,1+this.bearing,5+this.bearing);
     this.ctx.fillStyle = 'black';
     this.ctx.fill();
 };
