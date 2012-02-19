@@ -3,7 +3,7 @@ var kai = kai || {};
 kai.levels = kai.levels || {};
 
 kai.levels.Kaimall = function() {
-    // starting position
+    // player starting position
     this.startX = 212; this.startY = 477;
 }
 

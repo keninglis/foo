@@ -1,1 +1,3 @@
 Zombie arcade - a javascript/canvas learning exercise 
+
+NB. must be hosted on a server to get round same-origin limits of getImageData 
