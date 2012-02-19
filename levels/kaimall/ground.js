@@ -12,7 +12,8 @@ kai.levels.Kaimall.prototype.load = function(cb){
     console.debug('Kai Mall loading...');
 
     var fp = new Image(); 
-    fp.src = 'levels/kaimall/ground_fp.gif';
+    //fp.src = 'levels/kaimall/ground_fp.gif';
+    fp.src = 'levels/kaimall/mall_ground.png';
     var that = this;
     fp.onload = function() {
         var c = document.createElement('canvas');  
@@ -39,7 +40,16 @@ kai.levels.Kaimall.prototype._draw = function(windowCtx,offsetX,offsetY){
 kai.levels.Kaimall.prototype.tryAction = function(action) {
     if(!action) { return; }
     if(action.move) {
-        return { move: [action.move[0]+action.move[2], action.move[1]+action.move[3]] };
+        var newX = action.move[0]+action.move[2];
+        var newY = action.move[1]+action.move[3];
+        /*
+        var targetPixel = this.floorPlanPixel(newX,newY); 
+        if(targetPixel[3] > 0) { 
+            console.debug(targetPixel);
+            return; 
+        }
+        */
+        return { move: [newX, newY] };
     }
 };
 
@@ -54,3 +64,15 @@ kai.levels.Kaimall.prototype.getActors = function() {
     }
     return actors;
 }
+
+
+kai.levels.Kaimall.prototype.floorPlanPixel = function(x,y) {
+    var x = Math.floor(x);
+    var y = Math.floor(y);
+    var pix = 4 * (y * this.floorPlanCtx.canvas.width + x);
+
+    return [
+        this.floorPlanData.data[pix], this.floorPlanData.data[pix+1],
+        this.floorPlanData.data[pix+2], this.floorPlanData.data[pix+3]
+    ];
+};

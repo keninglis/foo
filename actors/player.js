@@ -49,7 +49,10 @@ kai.Player.prototype.requestAction = function(){
         //console.debug('down');
     }
     if(dX || dY) {
-        return { move: [this.x,this.y,dX,dY,this.radius] }; 
+        return { 
+            player: 1, // identify me
+            move: [this.x,this.y,dX,dY,this.radius] 
+        }; 
     }
 };
 
