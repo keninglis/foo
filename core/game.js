@@ -2,6 +2,9 @@
 // I claim kai! Problem?
 var kai = {};
 
+// globals
+kai.twoPI = Math.PI * 2;
+
 kai.Game = function(board,player,startLevel) {
     // middle points of visible screen
     this.windowHalfW = board.actors.canvas.width / 2;
