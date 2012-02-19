@@ -7,7 +7,7 @@ kai.zombies.Normal = function(x,y,bearing) {
 
     this.x = x;
     this.y = y;
-    this.r = 6;
+    this.radius = 6;
     this.arcEnd = 2*Math.PI;
     this.speed = .5;
     this.bearing = bearing; 
@@ -29,8 +29,7 @@ kai.zombies.Normal.prototype.act = function(response){
 
 kai.zombies.Normal.prototype.draw = function(ctx,offsetX,offsetY){
     ctx.beginPath(); 
-    ctx.arc(this.x - offsetX,this.y - offsetY,this.r,0,this.arcEnd);
+    ctx.arc(this.x - offsetX,this.y - offsetY,this.radius,1+this.bearing,5+this.bearing);
     ctx.fillStyle = 'red';
     ctx.fill();
 }
-
