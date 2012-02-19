@@ -1,4 +1,6 @@
-var kai = kai || {};
+"use strict";
+// depends on kai
+
 kai.zombies = kai.zombies || {};
 
 kai.zombies.Normal = function(x,y,bearing) {

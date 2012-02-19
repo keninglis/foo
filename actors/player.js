@@ -1,6 +1,5 @@
 "use strict";
-
-var kai = kai || {};
+// depends on kai
 
 // constructor
 kai.Player = function(input) {

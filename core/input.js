@@ -1,4 +1,5 @@
-var kai = kai || {};
+"use strict";
+// depends on kai (game.js) 
 
 // based on http://nokarma.org/2011/02/27/javascript-game-development-keyboard-input/index.html
 kai.input = function(win) {

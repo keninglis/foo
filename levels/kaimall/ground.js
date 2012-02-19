@@ -1,4 +1,5 @@
-var kai = kai || {};
+"use strict";
+// depends on kai
 
 kai.levels = kai.levels || {};
 

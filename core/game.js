@@ -1,5 +1,6 @@
 "use strict";
-var kai = kai || {};
+// I claim kai! Problem?
+var kai = {};
 
 kai.Game = function(board,player,startLevel) {
     // middle points of visible screen
