@@ -40,20 +40,10 @@ kai.Player.prototype.requestAction = function(){
     }
 
     if(this.input.isDown(this.input.UP)) {
-        dX = Math.cos(this.bearing) * this.speed;
-        dY = Math.sin(this.bearing) * this.speed;
-        //console.debug('up');
+        return { actor:this, cmd:'forward' };
     }
     if(this.input.isDown(this.input.DOWN)) {
-        dY = -1 * Math.sin(this.bearing) * this.speed;
-        dX = -1 * Math.cos(this.bearing) * this.speed;
-        //console.debug('down');
-    }
-    if(dX || dY) {
-        return { 
-            player: 1, // identify me
-            move: [this.x,this.y,dX,dY,this.radius] 
-        }; 
+        return { actor:this, cmd:'backward' };
     }
 };
 

@@ -14,9 +14,7 @@ kai.zombies.Normal = function(x,y,bearing) {
 };
 
 kai.zombies.Normal.prototype.requestAction = function(){
-    var dX = Math.cos(this.bearing) * this.speed;
-    var dY = Math.sin(this.bearing) * this.speed;
-    return { move: [this.x,this.y,dX,dY,this.radius] }; 
+    return { cmd:'forward', actor:this };
 };
 
 kai.zombies.Normal.prototype.act = function(response){

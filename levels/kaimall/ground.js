@@ -43,14 +43,24 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
     if(action.move) {
         var newX = action.move[0]+action.move[2];
         var newY = action.move[1]+action.move[3];
-        /*
         var targetPixel = this.floorPlanPixel(newX,newY); 
         if(targetPixel[3] > 0) { 
-            console.debug(targetPixel);
             return; 
         }
-        */
         return { move: [newX, newY] };
+    }
+    if(action.cmd) {
+        if (action.cmd == 'forward') {
+            var dX = Math.cos(action.actor.bearing) * action.actor.speed;
+            var dY = Math.sin(action.actor.bearing) * action.actor.speed;
+            return { move: [action.actor.x + dX, action.actor.y + dY] };
+        }
+        if (action.cmd == 'backward') {
+            
+            var dX = - Math.cos(action.actor.bearing) * .3 * action.actor.speed;
+            var dY = - Math.sin(action.actor.bearing) * .3 * action.actor.speed;
+            return { move: [action.actor.x + dX, action.actor.y + dY] };
+        }
     }
 };
 
