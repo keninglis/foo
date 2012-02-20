@@ -8,7 +8,6 @@ kai.zombies.Normal = function(x,y,bearing) {
     this.x = x;
     this.y = y;
     this.radius = 6;
-    this.arcEnd = 2*Math.PI;
     this.speed = .5;
     this.bearing = bearing; 
 };
@@ -19,6 +18,9 @@ kai.zombies.Normal.prototype.requestAction = function(){
 
 kai.zombies.Normal.prototype.act = function(response){
     if(!response) { return; }
+    if(response.bounce) {
+        this.bearing += Math.random() - .5;// silly random turn - staggering into corners
+    }
     if(response.move) {
         this.x = response.move[0];
         this.y = response.move[1];

@@ -51,7 +51,7 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
             var yEdge = action.actor.y + yFactor * (action.actor.speed + action.actor.radius);
 
             var targetPixel = this.floorPlanPixel(xEdge,yEdge);
-            if(targetPixel[3] > 0) { return; }
+            if(targetPixel[3] > 0) { return { bounce: true }; }
             return { move: [xCentre, yCentre] };
         }
 
@@ -67,10 +67,10 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
 
 kai.levels.Kaimall.prototype.getActors = function() {
     var actors = [];
-    for(var i = 0; i < 50; i++) {
+    for(var i = 0; i < 100; i++) {
         actors.push(new kai.zombies.Normal(
-            Math.random() * 200 + this.startX, 
-            Math.random() * 200 + this.startY, 
+            Math.random() * 400 + this.startX, 
+            Math.random() * 500 + this.startY, 
             2 * Math.PI * Math.random()
         ));
     }
