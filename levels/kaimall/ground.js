@@ -40,26 +40,27 @@ kai.levels.Kaimall.prototype._draw = function(windowCtx,offsetX,offsetY){
 
 kai.levels.Kaimall.prototype.tryAction = function(action) {
     if(!action) { return; }
-    if(action.move) {
-        var newX = action.move[0]+action.move[2];
-        var newY = action.move[1]+action.move[3];
-        var targetPixel = this.floorPlanPixel(newX,newY); 
-        if(targetPixel[3] > 0) { 
-            return; 
-        }
-        return { move: [newX, newY] };
-    }
     if(action.cmd) {
         if (action.cmd == 'forward') {
-            var dX = Math.cos(action.actor.bearing) * action.actor.speed;
-            var dY = Math.sin(action.actor.bearing) * action.actor.speed;
-            return { move: [action.actor.x + dX, action.actor.y + dY] };
+            var xFactor = Math.cos(action.actor.bearing);
+            var xCentre = action.actor.x + xFactor * action.actor.speed;
+            var xEdge = action.actor.x + xFactor * (action.actor.speed + action.actor.radius);
+
+            var yFactor = Math.sin(action.actor.bearing);
+            var yCentre = action.actor.y + yFactor * action.actor.speed;
+            var yEdge = action.actor.y + yFactor * (action.actor.speed + action.actor.radius);
+
+            var targetPixel = this.floorPlanPixel(xEdge,yEdge);
+            if(targetPixel[3] > 0) { return; }
+            return { move: [xCentre, yCentre] };
         }
+
         if (action.cmd == 'backward') {
-            
-            var dX = - Math.cos(action.actor.bearing) * .3 * action.actor.speed;
-            var dY = - Math.sin(action.actor.bearing) * .3 * action.actor.speed;
-            return { move: [action.actor.x + dX, action.actor.y + dY] };
+            var newX = action.actor.x - (Math.cos(action.actor.bearing) * .3 * action.actor.speed);
+            var newY = action.actor.y - (Math.sin(action.actor.bearing) * .3 * action.actor.speed);
+            var targetPixel = this.floorPlanPixel(newX-action.actor.radius, newY-action.actor.radius);
+            if(targetPixel[3] > 0) { return; }
+            return { move: [newX, newY] };
         }
     }
 };
