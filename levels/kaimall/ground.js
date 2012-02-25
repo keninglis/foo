@@ -47,27 +47,36 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
                 action.actor.x+Math.cos(action.actor.bearing)*action.actor.speed,
                 action.actor.y+Math.sin(action.actor.bearing)*action.actor.speed
             ];
-           
-            for(var i in action.actor.testGrid) {
-                obstacle = this.obstacle(
-                    newCentre[0]+action.actor.testGrid[i][0], 
-                    newCentre[1]+action.actor.testGrid[i][1]
-                );
-                if(obstacle) { break; }
-            }
-
-            if(obstacle == kai.OBS_WALL || obstacle == kai.OBS_GLASS ||
-                obstacle == kai.OBS_SHUTTER
-            ) { return { bounce: true }; }
-
-            return { move: newCentre };
+            return this.tryMove(newCentre, action.actor);
         }
 
         if (action.cmd == 'backward') {
+            // backwards is slower
+            var newCentre = [
+            action.actor.x+Math.cos(action.actor.bearing)*action.actor.speed*-.3,
+            action.actor.y+Math.sin(action.actor.bearing)*action.actor.speed*-.3
+            ];
+            return this.tryMove(newCentre, action.actor);
         }
     }
 };
 
+kai.levels.Kaimall.prototype.tryMove = function(newCentre,actor) {
+    var obstacle;
+    for(var i in actor.testGrid) {
+        obstacle = this.obstacle(
+            newCentre[0]+actor.testGrid[i][0], 
+            newCentre[1]+actor.testGrid[i][1]
+        );
+        if(obstacle) { break; }
+    }
+
+    if(obstacle == kai.OBS_WALL || obstacle == kai.OBS_GLASS ||
+            obstacle == kai.OBS_SHUTTER
+      ) { return { bounce: true }; }
+
+    return { move: newCentre };
+};
 
 /* 
  * @return false|type of obstacle eg kai.OBS_WALL
@@ -103,7 +112,7 @@ kai.levels.Kaimall.prototype.getActors = function() {
     var actors = [];
     for(var i = 0; i < 1000; i++) {
         actors.push(new kai.zombies.Normal(
-            2154,300, 2 * Math.PI * Math.random()
+            344,300, 2 * Math.PI * Math.random()
         ));
     }
     return actors;
