@@ -66,17 +66,6 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
     }
 };
 
-kai.levels.Kaimall.prototype.getActors = function() {
-    var actors = [];
-    for(var i = 0; i < 100; i++) {
-        actors.push(new kai.zombies.Normal(
-            Math.random() * 400 + this.startX, 
-            Math.random() * 500 + this.startY, 
-            2 * Math.PI * Math.random()
-        ));
-    }
-    return actors;
-}
 
 /* 
  * @return false|type of obstacle eg kai.OBS_WALL
@@ -107,3 +96,15 @@ kai.levels.Kaimall.prototype.floorPlanPixel = function(x,y) {
         this.floorPlanData.data[pix+2], this.floorPlanData.data[pix+3]
     ];
 };
+
+kai.levels.Kaimall.prototype.getActors = function() {
+    var actors = [];
+    for(var i = 0; i < 100; i++) {
+        actors.push(new kai.zombies.Normal(
+            Math.random() * 400 + this.startX, 
+            Math.random() * 500 + this.startY, 
+            2 * Math.PI * Math.random()
+        ));
+    }
+    return actors;
+}
