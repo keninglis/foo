@@ -5,6 +5,13 @@ var kai = {};
 // globals
 kai.twoPI = Math.PI * 2;
 
+kai.OBS_WALL = 1;
+kai.OBS_DOOR = 2;
+kai.OBS_LIFTDOOR = 3;
+kai.OBS_SLIDEDOOR = 4;
+kai.OBS_SHUTTER = 5;
+kai.OBS_GLASS = 6;
+
 kai.Game = function(board,player,startLevel) {
     // middle points of visible screen
     this.windowHalfW = board.actors.canvas.width / 2;

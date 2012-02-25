@@ -40,6 +40,7 @@ kai.levels.Kaimall.prototype._draw = function(windowCtx,offsetX,offsetY){
 
 kai.levels.Kaimall.prototype.tryAction = function(action) {
     if(!action) { return; }
+    var obstacle;
     if(action.cmd) {
         if (action.cmd == 'forward') {
             var xFactor = Math.cos(action.actor.bearing);
@@ -50,17 +51,17 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
             var yCentre = action.actor.y + yFactor * action.actor.speed;
             var yEdge = action.actor.y + yFactor * (action.actor.speed + action.actor.radius);
 
-            var targetPixel = this.floorPlanPixel(xEdge,yEdge);
-            if(targetPixel[3] > 0) { return { bounce: true }; }
+            obstacle = this.obstacle(xEdge,yEdge);
+
+            if(obstacle == kai.OBS_WALL || obstacle == kai.OBS_GLASS ||
+                obstacle == kai.OBS_SHUTTER
+            ) { return { bounce: true }; }
+
+            // default... just move through it
             return { move: [xCentre, yCentre] };
         }
 
         if (action.cmd == 'backward') {
-            var newX = action.actor.x - (Math.cos(action.actor.bearing) * .3 * action.actor.speed);
-            var newY = action.actor.y - (Math.sin(action.actor.bearing) * .3 * action.actor.speed);
-            var targetPixel = this.floorPlanPixel(newX-action.actor.radius, newY-action.actor.radius);
-            if(targetPixel[3] > 0) { return; }
-            return { move: [newX, newY] };
         }
     }
 };
@@ -77,6 +78,24 @@ kai.levels.Kaimall.prototype.getActors = function() {
     return actors;
 }
 
+/* 
+ * @return false|type of obstacle eg kai.OBS_WALL
+ */
+kai.levels.Kaimall.prototype.obstacle = function(x,y) {
+    var pix = this.floorPlanPixel(x,y);
+    if(pix[3] < 20) { return; }
+
+    var r = pix[0], g = pix[1], b = pix[2], k = pix[3];
+
+    if(r < 10 && g < 10 && b < 10) { return kai.OBS_WALL; }
+    if(r > 220 && g < 10 && b < 10) { return kai.OBS_DOOR; }
+    if(r > 250 && g < 10 && b > 200) { return kai.OBS_LIFTDOOR; }
+    if(r < 10 && g < 10 && b > 250) { return kai.OBS_GLASS; }
+    if(r < 10 && g > 250 && b > 200) { return kai.OBS_SHUTTER; }
+
+    //console.debug('unidentified pixel',r,g,b,k); 
+    return;
+};
 
 kai.levels.Kaimall.prototype.floorPlanPixel = function(x,y) {
     var x = Math.floor(x);
