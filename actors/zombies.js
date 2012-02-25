@@ -10,6 +10,13 @@ kai.zombies.Normal = function(x,y,bearing) {
     this.radius = 6;
     this.speed = .4;
     this.bearing = bearing; 
+
+    this.testGrid = [
+        [0,this.radius], [0,-this.radius],
+        [0,this.radius/2], [0,-this.radius/2], 
+        [this.radius,0], [-this.radius,0],
+        [this.radius/2,0], [-this.radius/2,0]
+    ];
 };
 
 kai.zombies.Normal.prototype.requestAction = function(){

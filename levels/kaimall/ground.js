@@ -43,22 +43,24 @@ kai.levels.Kaimall.prototype.tryAction = function(action) {
     var obstacle;
     if(action.cmd) {
         if (action.cmd == 'forward') {
-            var xFactor = Math.cos(action.actor.bearing);
-            var xCentre = action.actor.x + xFactor * action.actor.speed;
-            var xEdge = action.actor.x + xFactor * (action.actor.speed + action.actor.radius);
-
-            var yFactor = Math.sin(action.actor.bearing);
-            var yCentre = action.actor.y + yFactor * action.actor.speed;
-            var yEdge = action.actor.y + yFactor * (action.actor.speed + action.actor.radius);
-
-            obstacle = this.obstacle(xEdge,yEdge);
+            var newCentre = [
+                action.actor.x+Math.cos(action.actor.bearing)*action.actor.speed,
+                action.actor.y+Math.sin(action.actor.bearing)*action.actor.speed
+            ];
+           
+            for(var i in action.actor.testGrid) {
+                obstacle = this.obstacle(
+                    newCentre[0]+action.actor.testGrid[i][0], 
+                    newCentre[1]+action.actor.testGrid[i][1]
+                );
+                if(obstacle) { break; }
+            }
 
             if(obstacle == kai.OBS_WALL || obstacle == kai.OBS_GLASS ||
                 obstacle == kai.OBS_SHUTTER
             ) { return { bounce: true }; }
 
-            // default... just move through it
-            return { move: [xCentre, yCentre] };
+            return { move: newCentre };
         }
 
         if (action.cmd == 'backward') {
@@ -99,11 +101,9 @@ kai.levels.Kaimall.prototype.floorPlanPixel = function(x,y) {
 
 kai.levels.Kaimall.prototype.getActors = function() {
     var actors = [];
-    for(var i = 0; i < 100; i++) {
+    for(var i = 0; i < 1000; i++) {
         actors.push(new kai.zombies.Normal(
-            Math.random() * 400 + this.startX, 
-            Math.random() * 500 + this.startY, 
-            2 * Math.PI * Math.random()
+            2154,300, 2 * Math.PI * Math.random()
         ));
     }
     return actors;

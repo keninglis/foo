@@ -16,6 +16,13 @@ kai.Player = function(input) {
     this.radius = 6; //radius
 
     this.hasMoved = true; // start as true to start drawing
+
+    this.testGrid = [
+        [0,this.radius], [0,-this.radius],
+        [0,this.radius/2], [0,-this.radius/2], 
+        [this.radius,0], [-this.radius,0],
+        [this.radius/2,0], [-this.radius/2,0]
+    ];
 };
 
 kai.Player.prototype.setWindow = function(midX,midY,ctx) {
