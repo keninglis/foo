@@ -47,10 +47,10 @@ kai.Game.prototype.loop = function(){
 
     this.clearCtx(this.board.actors);
     //console.debug('at', this.player.x, this.player.y);
-    this.player.draw(); 
     for(var i in this.actors) {
         this.actors[i].draw(this.board.actors,offsetX,offsetY);
     }
+    this.player.draw(); 
 
     // setTimeout loses this unless we save it here 
     var that = this;
