@@ -7,7 +7,7 @@ kai.Player = function(input) {
     this.input = input;
     this.x = 100;
     this.y = 100;
-    this.speed = 5;
+    this.speed = 4;
 
     this.bearing = 0; 
     

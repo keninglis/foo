@@ -8,7 +8,7 @@ kai.zombies.Normal = function(x,y,bearing) {
     this.x = x;
     this.y = y;
     this.radius = 6;
-    this.speed = .5;
+    this.speed = .4;
     this.bearing = bearing; 
 };
 
