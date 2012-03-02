@@ -111,7 +111,7 @@ kai.levels.Kaimall.prototype.floorPlanPixel = function(x,y) {
 kai.levels.Kaimall.prototype.getActors = function() {
     var actors = [];
     for(var i = 0; i < 1000; i++) {
-        actors.push(new kai.zombies.Normal(
+        actors.push(new kai.Zombie(
             344,300, 2 * Math.PI * Math.random()
         ));
     }

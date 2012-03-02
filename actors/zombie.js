@@ -1,9 +1,7 @@
 "use strict";
 // depends on kai
 
-kai.zombies = kai.zombies || {};
-
-kai.zombies.Normal = function(x,y,bearing) {
+kai.Zombie = function(x,y,bearing) {
 
     this.x = x;
     this.y = y;
@@ -19,11 +17,11 @@ kai.zombies.Normal = function(x,y,bearing) {
     ];
 };
 
-kai.zombies.Normal.prototype.requestAction = function(){
+kai.Zombie.prototype.requestAction = function(){
     return { cmd:'forward', actor:this };
 };
 
-kai.zombies.Normal.prototype.act = function(response){
+kai.Zombie.prototype.act = function(response){
     if(!response) { return; }
     if(response.bounce) {
         this.bearing += Math.random() - .5;// silly random turn - staggering into corners
@@ -34,7 +32,7 @@ kai.zombies.Normal.prototype.act = function(response){
     }
 };
 
-kai.zombies.Normal.prototype.draw = function(ctx,offsetX,offsetY){
+kai.Zombie.prototype.draw = function(ctx,offsetX,offsetY){
     ctx.beginPath(); 
     ctx.arc(this.x - offsetX,this.y - offsetY,this.radius,1+this.bearing,5+this.bearing);
     ctx.fillStyle = 'red';
