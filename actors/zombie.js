@@ -8,6 +8,7 @@ kai.Zombie = function(x,y,bearing) {
     this.radius = 6;
     this.speed = .4;
     this.bearing = bearing; 
+    this.colour = '#333';
 
     this.testGrid = [
         [0,this.radius], [0,-this.radius],
@@ -35,6 +36,6 @@ kai.Zombie.prototype.act = function(response){
 kai.Zombie.prototype.draw = function(ctx,offsetX,offsetY){
     ctx.beginPath(); 
     ctx.arc(this.x - offsetX,this.y - offsetY,this.radius,1+this.bearing,5+this.bearing);
-    ctx.fillStyle = '#444';
+    ctx.fillStyle = this.colour;
     ctx.fill();
 }
