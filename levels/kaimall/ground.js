@@ -110,10 +110,19 @@ kai.levels.Kaimall.prototype.floorPlanPixel = function(x,y) {
 
 kai.levels.Kaimall.prototype.getActors = function() {
     var actors = [];
-    for(var i = 0; i < 100; i++) {
+    for(var i = 0; i < 1000; i++) {
         actors.push(new kai.Zombie(
             344,300, 2 * Math.PI * Math.random()
         ));
     }
     return actors;
 }
+
+// can the actor see the player
+kai.levels.Kaimall.prototype.lineOfSight = function(player,actor) {
+    // @TODO walls!
+    var distance = Math.sqrt(
+        Math.pow(player.x-actor.x,2) + Math.pow(player.y-actor.y,2)
+    );
+    return distance < 150;
+};
