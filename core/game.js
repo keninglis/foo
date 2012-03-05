@@ -33,6 +33,8 @@ kai.Game.prototype.loop = function(){
     // where the window is in abs x,y
     var offsetX = this.player.x - this.windowHalfW; 
     var offsetY = this.player.y - this.windowHalfH; 
+    var offsetX2 = this.player.x + this.windowHalfW; 
+    var offsetY2 = this.player.y + this.windowHalfH; 
   
     // if player has moved move background,etc 
     if(this.player.hasMoved) {
@@ -41,14 +43,17 @@ kai.Game.prototype.loop = function(){
         this.level.draw(this.board.background,offsetX,offsetY);
         //console.debug(this.player.x,this.player.y);
     }
-    
-    // move actors anyway
-    // @todo clear actors 
-
+   
+    // draw visible actors and player
     this.clearCtx(this.board.actors);
-    //console.debug('at', this.player.x, this.player.y);
     for(var i in this.actors) {
-        this.actors[i].draw(this.board.actors,offsetX,offsetY);
+        // only draw if they're in window
+        if(
+            this.actors[i].x > offsetX && this.actors[i].x < offsetX2 &&
+            this.actors[i].y > offsetY && this.actors[i].y < offsetY2
+        ) {
+            this.actors[i].draw(this.board.actors,offsetX,offsetY);
+        }
     }
     this.player.draw(); 
 
