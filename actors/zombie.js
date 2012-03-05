@@ -35,6 +35,6 @@ kai.Zombie.prototype.act = function(response){
 kai.Zombie.prototype.draw = function(ctx,offsetX,offsetY){
     ctx.beginPath(); 
     ctx.arc(this.x - offsetX,this.y - offsetY,this.radius,1+this.bearing,5+this.bearing);
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = '#444';
     ctx.fill();
 }

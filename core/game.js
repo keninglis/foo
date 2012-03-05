@@ -21,7 +21,17 @@ kai.Game = function(board,player,startLevel) {
     this.player = player;
     this.player.setWindow(this.windowHalfW, this.windowHalfH, board.actors);
     this.actors = startLevel.getActors();
-}
+    this.stageCorners = [];
+};
+
+// is actor on the visible stage (with a wee margin of 10 to handle partial zoms)
+// @return boolean
+kai.Game.prototype.onStage = function(actor){
+    return (
+        actor.x > this.stageCorners[0]-10 && actor.x < this.stageCorners[2]+10 &&
+        actor.y > this.stageCorners[1]-10 && actor.y < this.stageCorners[3]+10
+    );
+};
 
 kai.Game.prototype.loop = function(){
     // what ya doing? this happened. How d'ya like that?
@@ -30,17 +40,18 @@ kai.Game.prototype.loop = function(){
         this.actors[i].act(this.level.tryAction(this.actors[i].requestAction()));
     }
 
-    // where the window is in abs x,y
-    var offsetX = this.player.x - this.windowHalfW; 
-    var offsetY = this.player.y - this.windowHalfH; 
-    var offsetX2 = this.player.x + this.windowHalfW; 
-    var offsetY2 = this.player.y + this.windowHalfH; 
-  
     // if player has moved move background,etc 
     if(this.player.hasMoved) {
+
+        // x,y,x2,y2 - corners of visible stage
+        this.stageCorners = [
+            this.player.x - this.windowHalfW, this.player.y - this.windowHalfH, 
+            this.player.x + this.windowHalfW, this.player.y + this.windowHalfH 
+        ];
+
         this.player.hasMoved = false;
         this.clearCtx(this.board.background);
-        this.level.draw(this.board.background,offsetX,offsetY);
+        this.level.draw(this.board.background,this.stageCorners[0],this.stageCorners[1]);
         //console.debug(this.player.x,this.player.y);
     }
    
@@ -48,11 +59,10 @@ kai.Game.prototype.loop = function(){
     this.clearCtx(this.board.actors);
     for(var i in this.actors) {
         // only draw if they're in window
-        if(
-            this.actors[i].x > offsetX && this.actors[i].x < offsetX2 &&
-            this.actors[i].y > offsetY && this.actors[i].y < offsetY2
-        ) {
-            this.actors[i].draw(this.board.actors,offsetX,offsetY);
+        if(this.onStage(this.actors[i])) {
+            this.actors[i].draw(
+                this.board.actors,this.stageCorners[0],this.stageCorners[1]
+            );
         }
     }
     this.player.draw(); 
