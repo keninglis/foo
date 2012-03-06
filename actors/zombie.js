@@ -6,7 +6,7 @@ kai.Zombie = function(x,y,bearing) {
     this.x = x;
     this.y = y;
     this.radius = 6;
-    this.baseSpeed = .4;
+    this.baseSpeed = 1.4;
     this.speed = .4;
     this.bearing = bearing; 
     this.colour = '#333';
@@ -57,9 +57,11 @@ kai.Zombie.prototype.actMhhh = function(response){
 };
 
 // brains sighted... chase and feed
-kai.Zombie.prototype.becomeBraiiins = function(){
+// @param player
+kai.Zombie.prototype.becomeBraiiins = function(player){
     if(this.mode === 'braiiins') { return; }
     this.mode = 'braiiins';
+    this.targetPlayer = player;
     this.speed = this.baseSpeed*2;
     this.colour = 'red';
     this.act = this.actBraiiins;
@@ -75,4 +77,6 @@ kai.Zombie.prototype.actBraiiins = function(response){
         this.x = response.move[0];
         this.y = response.move[1];
     }
+    // rotate to face player
+    this.bearing = Math.atan2(this.targetPlayer.y-this.y, this.targetPlayer.x-this.x);
 };
