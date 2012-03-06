@@ -64,10 +64,12 @@ kai.Game.prototype.loop = function(){
                 this.board.actors,this.stageCorners[0],this.stageCorners[1]
             );
             if(this.level.lineOfSight(this.player,this.actors[i])) {
-                this.actors[i].colour = 'red';
+                this.actors[i].becomeBraiiins();
+                //this.actors[i].colour = 'red';
                 //console.debug(this.actors[i]);
             } else {
-                this.actors[i].colour = '#333';
+                //this.actors[i].colour = '#333';
+                this.actors[i].becomeMhhh();
             }
 
         }
