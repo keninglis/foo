@@ -67,16 +67,22 @@ kai.Zombie.prototype.becomeBraiiins = function(player){
     this.act = this.actBraiiins;
 }
 
+kai.Zombie.prototype.bearingToPlayer = function(player){
+    return Math.atan2(player.y-this.y, player.x-this.x);
+};
+
 // strategy: chase and eat sweet, sweet brains
 kai.Zombie.prototype.actBraiiins = function(response){
     if(!response) { return; }
     if(response.bounce) {
         this.bearing += Math.random() - .5;// silly random turn - staggering into corners
+        return;
     }
     if(response.move) {
         this.x = response.move[0];
         this.y = response.move[1];
     }
     // rotate to face player
-    this.bearing = Math.atan2(this.targetPlayer.y-this.y, this.targetPlayer.x-this.x);
+    this.bearing = this.bearingToPlayer(this.targetPlayer);
+    //this.bearing = Math.atan2(this.targetPlayer.y-this.y, this.targetPlayer.x-this.x);
 };
