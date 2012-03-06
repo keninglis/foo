@@ -108,6 +108,7 @@ kai.levels.Kaimall.prototype.floorPlanPixel = function(x,y) {
     ];
 };
 
+// populate the level 
 kai.levels.Kaimall.prototype.getActors = function() {
     var actors = [];
     for(var i = 0; i < 1000; i++) {
@@ -120,9 +121,18 @@ kai.levels.Kaimall.prototype.getActors = function() {
 
 // can the actor see the player
 kai.levels.Kaimall.prototype.lineOfSight = function(player,actor) {
-    // @TODO walls!
     var distance = Math.sqrt(
         Math.pow(player.x-actor.x,2) + Math.pow(player.y-actor.y,2)
     );
-    return distance < 150;
+    if(distance > 140) { return false; }
+    var step = 3; // test every n pixels
+    var bearing = actor.bearingToPlayer(player); 
+    var dy = Math.sin(bearing);
+    var dx = Math.cos(bearing);
+    for(var i = step; i < distance; i+= step) {
+        var obstacle = this.obstacle(actor.x + dx * i, actor.y + dy * i);
+        if(obstacle === kai.OBS_WALL) { return false; }
+    }
+    return true;
 };
+
