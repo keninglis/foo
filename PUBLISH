@@ -1,0 +1,4 @@
+# thanks Steve http://stackoverflow.com/a/5824720/20074
+git checkout gh-pages
+git merge master
+git push origin gh-pages
