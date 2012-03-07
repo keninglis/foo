@@ -8,6 +8,6 @@ Zombies can pass through doors (red)
 Zombies can see through doors(red) and glass(blue)
 
 Due to same-origin limits of getImageData the code needs to be hosted.
-Try it here (but lots of &lt;F5&gt; if it isn't working - there's quite an aggressive cache)
+Try it here (but lots of <F5> if it isn't working - there's quite an aggressive cache)
 http://keninglis.github.com/foo/
 
