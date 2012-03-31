@@ -64,9 +64,9 @@ kai.Game.prototype.loop = function(){
                 this.board.actors,this.stageCorners[0],this.stageCorners[1]
             );
             if(this.level.lineOfSight(this.player,this.actors[i])) {
-                this.actors[i].becomeBraiiins(this.player);
+                this.actors[i].doSeePlayer(this.player);
             } else {
-                this.actors[i].becomeMhhh();
+                this.actors[i].doRelax();
             }
         }
     }

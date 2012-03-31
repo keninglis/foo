@@ -18,7 +18,7 @@ kai.Zombie = function(x,y,bearing) {
         [this.radius/2,0], [-this.radius/2,0]
     ];
 
-    this.becomeMhhh();
+    this.doRelax();
 };
 
 kai.Zombie.prototype.requestAction = function(){
@@ -35,7 +35,7 @@ kai.Zombie.prototype.draw = function(ctx,offsetX,offsetY){
 }
 
 // default mode... shamble and moan
-kai.Zombie.prototype.becomeMhhh = function(){
+kai.Zombie.prototype.doRelax = function(){
     if(this.mode === 'mhhh') { return; }
     this.mode = 'mhhh';
     this.speed = this.baseSpeed;
@@ -58,7 +58,7 @@ kai.Zombie.prototype.actMhhh = function(response){
 
 // brains sighted... chase and feed
 // @param player
-kai.Zombie.prototype.becomeBraiiins = function(player){
+kai.Zombie.prototype.doSeePlayer = function(player){
     if(this.mode === 'braiiins') { return; }
     this.mode = 'braiiins';
     this.targetPlayer = player;
