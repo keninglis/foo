@@ -1,5 +1,4 @@
 "use strict";
-// I claim kai! Problem?
 var kai = {};
 
 // globals
@@ -34,10 +33,29 @@ kai.Game.prototype.onStage = function(actor){
 };
 
 kai.Game.prototype.loop = function(){
-    // what ya doing? this happened. How d'ya like that?
+
     this.player.act(this.level.tryAction(this.player.requestAction()));
+
     for(var i in this.actors) {
-        this.actors[i].act(this.level.tryAction(this.actors[i].requestAction()));
+        var actionResponse = this.level.tryAction(this.actors[i].requestAction());
+        var collisionDistance; 
+        if(actionResponse.move) {
+            // if moving, check that isn't colliding with other actors
+            for(var j in this.actors) {
+                if(i == j) { continue; }
+                collisionDistance = this.actors[i].radius + this.actors[j].radius;
+                var collideX = Math.abs(actionResponse.move[0] - this.actors[j].x) < collisionDistance;
+                var collideY = Math.abs(actionResponse.move[1] - this.actors[j].y) < collisionDistance;
+                if(collideX && collideY) { 
+                    // if colliding then alter course a bit
+                    actionResponse = { bounce: true };
+                    break;
+                }
+            }
+        }
+        this.actors[i].act(
+            actionResponse
+        );
     }
 
     // if player has moved move background,etc 

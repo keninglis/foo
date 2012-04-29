@@ -45,7 +45,6 @@ kai.Zombie.prototype.doRelax = function(){
 
 // strategy: shamble aimlessly
 kai.Zombie.prototype.actMhhh = function(response){
-    if(!response) { return; }
     if(response.bounce) {
         // silly random turn - staggering into corners
         this.bearing += Math.random() - .5;
@@ -73,7 +72,6 @@ kai.Zombie.prototype.bearingToPlayer = function(player){
 
 // strategy: chase and eat sweet, sweet brains
 kai.Zombie.prototype.actBraiiins = function(response){
-    if(!response) { return; }
     if(response.bounce) {
         this.bearing += Math.random() - .5;// silly random turn - staggering into corners
         return;

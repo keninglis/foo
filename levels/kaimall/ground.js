@@ -6,6 +6,7 @@ kai.levels = kai.levels || {};
 kai.levels.Kaimall = function() {
     // player starting position
     this.startX = 212; this.startY = 477;
+    this.nZombies = 20;
 }
 
 // param is callback for onload
@@ -111,10 +112,13 @@ kai.levels.Kaimall.prototype.floorPlanPixel = function(x,y) {
 // populate the level 
 kai.levels.Kaimall.prototype.getActors = function() {
     var actors = [];
-    for(var i = 0; i < 1000; i++) {
-        actors.push(new kai.Zombie(
-            344,300, 2 * Math.PI * Math.random()
-        ));
+    var x = 260, y = 300, nX = 6, nY = 6, spacing = 20;
+    for(var i = 0; i < nY; i++) {
+        for(var j = 0; j < nY; j++) {
+            actors.push(new kai.Zombie(
+                x+i*spacing, y+j*spacing, kai.twoPI*Math.random()
+            ));
+        }
     }
     return actors;
 }
