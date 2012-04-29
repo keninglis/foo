@@ -43,7 +43,7 @@ kai.Game.prototype.loop = function(){
             // if moving, check that isn't colliding with other actors
             for(var j in this.actors) {
                 if(i == j) { continue; }
-                collisionDistance = this.actors[i].radius + this.actors[j].radius;
+                collisionDistance = this.actors[j].radius;
                 var collideX = Math.abs(actionResponse.move[0] - this.actors[j].x) < collisionDistance;
                 var collideY = Math.abs(actionResponse.move[1] - this.actors[j].y) < collisionDistance;
                 if(collideX && collideY) { 
